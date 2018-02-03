@@ -1,0 +1,6 @@
+[package]
+name = "fged_math"
+version = "0.1.0"
+authors = ["James Marcil <james@jamesmarcil.com>"]
+
+[dependencies]
