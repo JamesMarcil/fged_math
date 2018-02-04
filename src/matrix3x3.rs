@@ -1,4 +1,5 @@
-use std::ops::{Add, Index, IndexMut, Mul, Div, Sub};
+use std::ops::{Add, Div, Index, IndexMut, Mul, Sub};
+use vector3d::Vector3d;
 
 #[derive(Debug, Clone, Copy)]
 pub struct Matrix3x3 {
@@ -148,6 +149,20 @@ impl Mul<Matrix3x3> for Matrix3x3 {
         matrix[8] = self[2] * rhs[6] + self[5] * rhs[7] + self[8] * rhs[8]; // m22 = a20 * b02 + a21 * b12 + a22 * b22
 
         matrix
+    }
+}
+
+impl Mul<Vector3d> for Matrix3x3 {
+    type Output = Vector3d;
+
+    fn mul(self, rhs: Vector3d) -> Vector3d {
+        let mut vector = Vector3d::zero();
+
+        vector.x = self[0] * rhs.x + self[3] * rhs.y + self[6] * rhs.z; // m00 = a00 * b00 + a01 * b10 + a02 * b20
+        vector.y = self[1] * rhs.x + self[4] * rhs.y + self[7] * rhs.z; // m10 = a10 * b00 + a11 * b10 + a12 * b20
+        vector.z = self[2] * rhs.x + self[5] * rhs.y + self[8] * rhs.z; // m20 = a20 * b00 + a21 * b10 + a22 * b20
+
+        vector
     }
 }
 
