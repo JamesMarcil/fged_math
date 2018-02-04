@@ -1,4 +1,4 @@
-use std::ops::{Add, Mul, Neg, Sub};
+use std::ops::{Add, Div, Mul, Neg, Sub};
 
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub struct Vector2d {
@@ -52,9 +52,9 @@ impl Vector2d {
     }
 
     pub fn unit_vector(v: Vector2d) -> Vector2d {
-        let magnitude: f32 = v.magnitude();
+        let magnitude = v.magnitude();
 
-        let mut unit_vector: Vector2d = v;
+        let mut unit_vector = v;
         unit_vector.x /= magnitude;
         unit_vector.y /= magnitude;
 
@@ -70,7 +70,7 @@ impl Vector2d {
     }
 
     pub fn normalize(&mut self) {
-        let magnitude: f32 = self.magnitude();
+        let magnitude = self.magnitude();
 
         self.x /= magnitude;
         self.y /= magnitude;
@@ -106,6 +106,21 @@ impl Mul<f32> for Vector2d {
         Vector2d {
             x: self.x * rhs,
             y: self.y * rhs,
+        }
+    }
+}
+
+impl Div<f32> for Vector2d {
+    type Output = Vector2d;
+
+    fn div(self, rhs: f32) -> Vector2d {
+        if rhs == 0.0 {
+            panic!("Zero is an invalid denominator!")
+        }
+
+        Vector2d {
+            x: self.x / rhs,
+            y: self.y / rhs,
         }
     }
 }
