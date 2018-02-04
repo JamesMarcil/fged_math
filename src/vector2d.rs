@@ -114,10 +114,6 @@ impl Div<f32> for Vector2d {
     type Output = Vector2d;
 
     fn div(self, rhs: f32) -> Vector2d {
-        if rhs == 0.0 {
-            panic!("Zero is an invalid denominator!")
-        }
-
         Vector2d {
             x: self.x / rhs,
             y: self.y / rhs,
